@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>A helper</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/vendor/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+     <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqL8txYzlzdr-DASc2lOuuUPZRkE8lxXw&callback=initMap">
+</script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=true&key=AIzaSyBqL8txYzlzdr-DASc2lOuuUPZRkE8lxXw"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBqL8txYzlzdr-DASc2lOuuUPZRkE8lxXw"></script>
+ <script type="text/javascript">
+ var watchId=false;
+	var startLat,startLong;
+	var start=1;
+    function getInfo()
+	{
+	   if(navigator.geolocation)
+	   {
+          watchId=navigator.geolocation.watchPosition(onSuccess1,onError1,{
+		  maximumAge:1000,
+		  timeout:3000,
+		  enableHighAccuracy:true
+		  });
+	   }
+	}
+	function onSuccess1(position1)
+	{
+	  var lat=position1.coords.latitude;
+	  var longi=position1.coords.longitude;
+	  var latlong=new google.maps.LatLng(lat,longi);
+	  if(start==1)
+	  {
+	    startLat=lat;
+		startLong=longi;
+		start=0;
+	  }
+	  document.getElementById("position1").innerHTML="Latitude of your position : "+ lat +"<br />Longitude of your position  : "+longi
+	  var mapOptions={
+	     center: new google.maps.LatLng(startLat,startLong),
+		 zoom: 10,
+		 mapTypeId:google.maps.MapTypeId.ROADMAP
+	  };
+	  var map1=new google.maps.Map(document.getElementById("mapArea1"),mapOptions);
+	  var marker=new google.maps.Marker({
+	      position:new google.maps.LatLng(lat, longi),
+		  map: map1,
+		  title:"user Location",
+		  	animation:google.maps.Animation.BOUNCE
+	  });
+         
+	}
+	function onError1(error)
+	{
+	  switch(error.code)
+	  {
+	    case PERMISSION_DENIED:
+		                          alert("User Denied Permission");break;
+		case TIMEOUT:
+		                          alert("Geolocation timed out");break;
+	    case POSITION_UNAVAILABLE:
+		                          alert("Location information is not available");break;
+	    default:
+		                          alert("Unknown Error");break;
+	  }
+	}
+   /*function btnHit(){
+      $.getJSON('https://geolocation-db.com/json/')
+         .done (function(location) {
+		 var startLat,startLong;
+		 var start=1;
+		    var lat=location.latitude;
+			var longi=location.longitude;
+            $('#latitude').html(lat);
+            $('#longitude').html(longi);
+			var latlong=new google.maps.LatLng(lat,longi);
+			  document.getElementById("position1").innerHTML="Latitude of your position : "+ lat +"<br />Longitude of your position  : "+longi
+	       if(start==1)
+	         {
+	           startLat=lat;
+	        	startLong=longi;
+		       start=0;
+	          }
+			  var mapOptions={
+	     center: new google.maps.LatLng(startLat,startLong),
+		 zoom: 10,
+		 mapTypeId:google.maps.MapTypeId.ROADMAP
+	  };
+	  var map1=new google.maps.Map(document.getElementById("mapArea1"),mapOptions);
+	  var marker=new google.maps.Marker({
+	      position:new google.maps.LatLng(lat, longi),
+		  map: map1,
+		  title:"user Location",
+		  	animation:google.maps.Animation.BOUNCE
+	  });
+         });
+		} */
+ </script>
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header">
+
+    <div id="topbar">
+      <div class="container">
+        <div class="social-links">
+          <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+          <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+          <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="logo float-left">
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <h1 class="text-light"><a href="#intro" class="scrollto"><span>A Helper</span></a></h1>
+        <!-- <a href="#header" class="scrollto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a> -->
+      </div>
+
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#intro">Home</a></li>
+          <li><a href="#about">About Covid-19</a></li>
+          <li><a href="#services">Symptoms</a></li>
+          <li><a href="#why-us">Precautions</a></li>
+          <li><a href="#portfolio">Your location</a></li>
+
+          <!--<li><a href="#footer">Contact Us</a></li>-->
+        </ul>
+      </nav><!-- .main-nav -->
+
+    </div>
+  </header><!-- #header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="clearfix">
+    <div class="container d-flex h-100">
+      <div class="row justify-content-center align-self-center">
+        <div class="col-md-12 intro-info order-md-first order-last">
+          <h2>We all together<br>fight against <span>Covid-19!</span></h2>
+         
+        </div>
+
+        <div class="col-md-6 intro-img order-md-last order-first">
+         <!-- <img src="assets/img/main.webp" alt="" class="img-fluid">-->
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-5 col-md-6">
+            <div class="about-img">
+              <img src="assets/img/virus.png" alt="">
+            </div>
+          </div>
+
+          <div class="col-lg-7 col-md-6">
+            <div class="about-content">
+              <h2>Details of Covid-19</h2>
+              <h3>Coronavirus disease (COVID-19) is an infectious disease caused by a new virus.</h3>
+              <p>The disease causes respiratory illness (like the flu) with symptoms such as a cough, fever, and in more severe cases, difficulty breathing. 
+			  You can protect yourself by washing your hands frequently, avoiding touching your face, and avoiding close contact (1 meter or 3 feet) with people who are unwell.
+			  </p>
+              <p>Coronavirus disease spreads primarily through contact with an infected person when they cough or sneeze.
+			  It also spreads when a person touches a surface or object that has the virus on it, then touches their eyes, nose, or mouth.</p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- End About Section -->
+
+    <!-- ======= Services Section ======= -->
+    <section id="services" class="services section-bg">
+      <div class="container">
+
+        <header class="section-header">
+          <h3>Symptoms</h3>
+          <p>People may be sick with the virus for 1 to 14 days before developing symptoms.</p>
+        </header>
+
+        <div class="row">
+
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #fceef3;"></div>
+              <h4 class="title"><a href="">Fever</a></h4>
+              <p class="description">Fever is also known as hyperthermia, pyrexia, or elevated temperature. It describes a body temperature that’s higher than normal. Fever can affect children and adults.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #fff0da;"></div>
+              <h4 class="title"><a href="">Shortness of breath</a></h4>
+              <p class="description">Shortness of breath, or feeling “winded,” can leave you struggling to draw a full breath. You might feel like you’ve just run at a sprint, climbed several flights of stairs, or taken an aerobics class.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #e6fdfc;"></div>
+              <h4 class="title"><a href="">Cough</a></h4>
+              <p class="description">Coughing is your body’s way of getting rid of an irritant. When something irritates your throat or airway, your nervous system sends an alert to your brain. </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #eafde7;"></div>
+              <h4 class="title"><a href="">Fatigue</a></h4>
+              <p class="description">Fatigue is a term used to describe an overall feeling of tiredness or lack of energy. It isn’t the same as simply feeling drowsy or sleepy.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #e1eeff;"></div>
+              <h4 class="title"><a href="">Sore throat</a></h4>
+              <p class="description">A sore throat is a painful, dry, or scratchy feeling in the throat.
+			  Pain in the throat is one of the most common symptoms. </p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon" style="background: #ecebff;"></div>
+              <h4 class="title"><a href="">Runny nose</a></h4>
+              <p class="description">A runny nose is a symptom of many conditions. It’s characterized by mucus draining or dripping from the nostril.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Why Us Section ======= -->
+    <section id="why-us" class="why-us">
+      <div class="container-fluid">
+
+        <header class="section-header">
+          <h3>Precautions !!</h3>
+          <p>Although there is no vaccine available to prevent infection with the new coronavirus, you can take steps to reduce your risk of infection.</p>
+        </header>
+
+        <div class="row">
+
+          <div class="col-lg-5">
+            <div class="why-us-img">
+              <img src="assets/img/precaution.jpg" alt="" class="img-fluid">
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="why-us-content">
+              <p>1. Avoid large events and mass gatherings.<br></br>
+2. Avoid close contact (within about 6 feet, or 2 meters) with anyone who is sick or has symptoms.<br></br>
+3. Keep distance between yourself and others if COVID-19 is spreading in your community, especially if you have a higher risk of serious illness.<br></br>
+4. Wash your hands often with soap and water for at least 20 seconds, or use an alcohol-based hand sanitizer that contains at least 60% alcohol.<br></br>
+5. Cover your mouth and nose with your elbow or a tissue when you cough or sneeze. Throw away the used tissue.<br></br>
+6. Avoid touching your eyes, nose and mouth.<br></br>
+7. Avoid sharing dishes, glasses, bedding and other household items if you're sick.<br></br>
+8. Clean and disinfect high-touch surfaces daily.<br></br>
+9. Stay home from work, school and public areas if you're sick, unless you're going to get medical care. Avoid taking public transportation if you're sick.</p>
+
+
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+  
+    </section><!-- End Why Us Section -->
+
+
+
+    <!-- ======= Features Section ======= --
+    <section id="features" class="features">
+      <div class="container">
+
+        <div class="row feature-item">
+          <div class="col-lg-6 wow fadeInUp">
+            <img src="assets/img/features-1.svg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
+            <h4>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h4>
+            <p>
+              Ipsum in aspernatur ut possimus sint. Quia omnis est occaecati possimus ea. Quas molestiae perspiciatis occaecati qui rerum. Deleniti quod porro sed quisquam saepe. Numquam mollitia recusandae non ad at et a.
+            </p>
+            <p>
+              Ad vitae recusandae odit possimus. Quaerat cum ipsum corrupti. Odit qui asperiores ea corporis deserunt veritatis quidem expedita perferendis. Qui rerum eligendi ex doloribus quia sit. Porro rerum eum eum.
+            </p>
+          </div>
+        </div>
+
+        <div class="row feature-item mt-5 pt-5">
+          <div class="col-lg-6 wow fadeInUp order-1 order-lg-2">
+            <img src="assets/img/features-2.svg" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-6 wow fadeInUp pt-4 pt-lg-0 order-2 order-lg-1">
+            <h4>Neque saepe temporibus repellat ea ipsum et. Id vel et quia tempora facere reprehenderit.</h4>
+            <p>
+              Delectus alias ut incidunt delectus nam placeat in consequatur. Sed cupiditate quia ea quis. Voluptas nemo qui aut distinctio. Cumque fugit earum est quam officiis numquam. Ducimus corporis autem at blanditiis beatae incidunt sunt.
+            </p>
+            <p>
+              Voluptas saepe natus quidem blanditiis. Non sunt impedit voluptas mollitia beatae. Qui esse molestias. Laudantium libero nisi vitae debitis. Dolorem cupiditate est perferendis iusto.
+            </p>
+            <p>
+              Eum quia in. Magni quas ipsum a. Quis ex voluptatem inventore sint quia modi. Numquam est aut fuga mollitia exercitationem nam accusantium provident quia.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Features Section -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio section-bg">
+      <div class="container">
+
+        <header class="section-header">
+          <h3 class="section-title">Your Location</h3>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <button id="fetchLocation" onclick="getInfo();">Find out the location</button>
+			<div id="position1"></div>
+		
+          <div id="mapArea1" style="height:500px;width:90%;">
+           </div>
+          </div>
+		 
+        </div>
+
+
+      </div>
+    </section><!-- End Portfolio Section -->
+	    <!-- ======= Call To Action Section ======= -->
+    <section id="call-to-action" class="call-to-action wow fadeInUp">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 text-center text-lg-left">
+            <h3 class="cta-title">Medical Emergency!!!</h3>
+            <p class="cta-text"> If you are finding symptoms of COVID-19,need an emergency health checkup? check out the nearby COVID-19 doctors</p>
+          </div>
+          <div class="col-lg-3 cta-btn-container text-center">
+            <a class="cta-btn align-middle" href="nearMe.html">Call To Action</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+      </div>
+    </div>
+  </footer><!-- End  Footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/counterup/counterup.min.js"></script>
+  <script src="assets/vendor/venobox/venobox.min.js"></script>
+  <script src="assets/vendor/mobile-nav/mobile-nav.js"></script>
+  <script src="assets/vendor/wow/wow.min.js"></script>
+  <script src="assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+
+  <!--  Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
